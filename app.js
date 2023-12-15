@@ -1,5 +1,5 @@
 const yargs = require('yargs');
-const { simpanContact, listContact } = require('./contact');
+const { simpanContact, listContact, detailContact } = require('./contact');
 
 yargs
   .command({
@@ -34,6 +34,22 @@ yargs
     describe: 'get all contacts',
     handler() {
         listContact();
+    }
+  })
+
+yargs
+  .command({
+    command: 'detail',
+    describe: 'get detail contact',
+    builder: {
+        name: {
+            describe: 'Full Name',
+            demandOption: true,
+            type: 'string',
+        },
+    },
+    handler(argv) {
+        detailContact(argv.name);
     }
   })
 
