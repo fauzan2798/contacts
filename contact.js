@@ -73,4 +73,18 @@ const detailContact = (nama) => {
     }
 }
 
-module.exports = { simpanContact, listContact, detailContact };
+const deleteContact = (nama) => {
+    const contacts = loadContact();
+    const index = contacts.findIndex((contact) => contact.nama.toLowerCase() === nama.toLowerCase());
+
+    if (index !== -1) {
+        contacts.splice(index, 1);
+        fs.writeFileSync('data/contacts.json', JSON.stringify(contacts, null, 4));
+        console.log(`${nama} berhasil dihapus..`);
+        return false;
+    }
+
+    console.log(`Gagal menghapus kontak. ${nama} tidak ditemukan`);
+}
+
+module.exports = { simpanContact, listContact, detailContact, deleteContact };
